@@ -20,7 +20,7 @@
 
     <!-- Responsive CSS -->
     <link href="{%static 'main/css/responsive/responsive.css' %}" rel="stylesheet">
-
+   
 </head>
 
 <body>
@@ -54,26 +54,9 @@
                 <!--  Login Register Area -->
                 <div class="col-7 col-sm-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
-                        <div class="login_register_area d-flex">
-                            <div class="login">
-                                <a href="register.html">Sing in</a>
-                            </div>
-                            <div class="register">
-                                <a href="register.html">Sing up</a>
-                            </div>
-                        </div>
+                        
                         <!-- Search Button Area -->
-                        <div class="search_button">
-                            <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
-                        <!-- Search Form -->
-                        <div class="search-hidden-form">
-                            <form action="#" method="get">
-                                <input type="search" name="search" id="search-anything" placeholder="Search Anything...">
-                                <input type="submit" value="" class="d-none">
-                                <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                            </form>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -109,6 +92,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="graduating.html">Graduating Batch</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'post' %}">Post your stuff</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">About</a>
@@ -147,7 +133,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/2.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/2.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -163,7 +149,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/3.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/3.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -179,7 +165,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/4.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/4.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -195,7 +181,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/5.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/5.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -211,7 +197,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/6.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/6.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -227,7 +213,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/1.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/1.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -243,7 +229,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/2.jpg" alt="">
+            <img src="{% static 'main/img/instagram-img/2.jpg' %}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -345,14 +331,17 @@
     <!-- ****** Footer Menu Area End ****** -->
 
     <!-- Jquery-2.2.4 js -->
-    <script src="{%static 'main/js/jquery/jquery-2.2.4.min.js'%}"></script>
-    <!-- Popper js -->
-    <script src="{%static 'main/js/bootstrap/popper.min.js'%}"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="{%static 'main/js/bootstrap/bootstrap.min.js'%}"></script>
-    <!-- All Plugins JS -->
-    <script src="{%static 'main/js/others/plugins.js'%}"></script>
-    <!-- Active JS -->
-    <script src="{%static 'main/js/active.js'%}"></script>
+    
+
 </body>
-</html>
+<script src="{%static 'main/js/jquery/jquery-2.2.4.min.js'%}"></script>
+<!-- Popper js -->
+<script src="{%static 'main/js/bootstrap/popper.min.js'%}"></script>
+<!-- Bootstrap-4 js -->
+<script src="{%static 'main/js/bootstrap/bootstrap.min.js'%}"></script>
+<!-- All Plugins JS -->
+<script src="{%static 'main/js/others/plugins.js'%}"></script>
+<!-- Active JS -->
+<script src="{%static 'main/js/active.js'%}"></script>
+
+

@@ -6,3 +6,6 @@ from django.http import HttpResponse
 def HomeView(request):
 
 	return render(request,'main/home.html')
+
+def PostView(request):
+	return render(request, 'main/post.html')
