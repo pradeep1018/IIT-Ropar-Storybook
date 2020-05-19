@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from .models import Post
+from .models import Post, Comment
 import datetime
 
 # Create your views here.
@@ -40,12 +40,24 @@ def PostView(request):
 def CommunicateView(request, pk, id):
 	obj = Post.objects.get(pk = pk)
 	if(id == 1):
-		obj.love += 1
+		obj.love_num += 1
 	elif(id == 2):
-		obj.likes += 1
+		obj.comment_num += 1
 	elif(id == 3):
-		obj.share += 1
+		obj.share_num += 1
 	obj.save()
 	return redirect('home')
 
 
+def CommentView(request, pk):
+	post = Post.objects.get(pk = pk)
+	try:
+		comments = Comment.objects.filter(post_info = post)
+	except:
+		comments = ''
+	if(request.method == 'POST'):
+		comment = request.POST.get('comment')
+		post = Post.objects.get(pk = pk)
+		c = Comment.objects.create(comment = comment, post_info = post)
+		return redirect('comment', pk = pk)
+	return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments})
