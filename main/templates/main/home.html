@@ -220,11 +220,12 @@
                     <div class="row">
 
                         <!-- Single Post -->
+                        {% for i in posts %}
                         <div class="col-12">
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
+                                    <img src= {{i.picurl}} alt="">
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
@@ -232,26 +233,26 @@
                                         <div class="post-author-date-area d-flex">
                                             <!-- Post Author -->
                                             <div class="post-author">
-                                                <a href="#">By Marian</a>
+                                                <a href="#">Username</a>
                                             </div>
                                             <!-- Post Date -->
                                             <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
+                                                <a href="#">{{i.date}}</a>
                                             </div>
                                         </div>
                                         <!-- Post Comment & Share Area -->
                                         <div class="post-comment-share-area d-flex">
                                             <!-- Post Favourite -->
                                             <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
+                                                <a href="{% url 'communicate' i.pk 1%}"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> {{i.love}}</a>
                                             </div>
                                             <!-- Post Comments -->
                                             <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
+                                                <a href="{% url 'communicate' i.pk 2%}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> {{i.likes}}</a>
                                             </div>
                                             <!-- Post Share -->
                                             <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{% url 'communicate' i.pk 3%}"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -259,293 +260,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
 
                         <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12">
-                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="{% static 'main/img/blog-img/1.jpg' %}" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
 
                 <div class="col-12">
                     <div class="pagination-area d-sm-flex mt-15">

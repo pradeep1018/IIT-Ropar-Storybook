@@ -20,6 +20,15 @@
 
     <!-- Responsive CSS -->
     <link href="{%static 'main/css/responsive/responsive.css' %}" rel="stylesheet">
+    <style>
+        .image-upload>input {
+            padding-right: 10px;
+            display: none;
+        }
+        article, aside, figure, footer, header, hgroup, 
+        menu, nav, section { display: block; }
+        
+    </style>
    
 </head>
 
@@ -290,27 +299,7 @@
                             <a href="index.html" class="yummy-logo">StoryBook IIT Ropar</a>
                         </div>
                         <!-- Menu Area Start -->
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-footer-nav" aria-controls="yummyfood-footer-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
-                            <!-- Menu Area Start -->
-                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-footer-nav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Gallery</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="graduating.html">Graduating Batch</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">About</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+                        
                     </div>
                 </div>
             </div>
@@ -343,5 +332,8 @@
 <script src="{%static 'main/js/others/plugins.js'%}"></script>
 <!-- Active JS -->
 <script src="{%static 'main/js/active.js'%}"></script>
+{%block javascript %}
+{% endblock %}
+
 
 

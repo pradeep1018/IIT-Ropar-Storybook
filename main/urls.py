@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect
 urlpatterns = [
 
 	path('',views.HomeView,name = 'home'),
-	path('',views.PostView,name = 'post')
+	path('post/',views.PostView,name = 'post'),
+	path('post/<int:pk>/<int:id>/',views.CommunicateView,name = 'communicate'),
 
 
 ]
