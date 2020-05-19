@@ -225,7 +225,7 @@
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                    <img src= {{i.picurl}} alt="">
+                                    <a href="{% url 'comment' i.pk%}"><img src= {{i.picurl}} alt=""></a>
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
@@ -244,11 +244,11 @@
                                         <div class="post-comment-share-area d-flex">
                                             <!-- Post Favourite -->
                                             <div class="post-favourite">
-                                                <a href="{% url 'communicate' i.pk 1%}"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> {{i.love}}</a>
+                                                <a href="{% url 'communicate' i.pk 1%}"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> {{i.love_num}}</a>
                                             </div>
                                             <!-- Post Comments -->
                                             <div class="post-comments">
-                                                <a href="{% url 'communicate' i.pk 2%}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> {{i.likes}}</a>
+                                                <a href="{% url 'comment' i.pk%}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> {{i.comment_num}}</a>
                                             </div>
                                             <!-- Post Share -->
                                             <div class="post-share">

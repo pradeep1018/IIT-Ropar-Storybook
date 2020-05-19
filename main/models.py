@@ -14,9 +14,16 @@ class Post(models.Model):
     videourl = models.TextField(default = '-')
     videoname = models.TextField(default = '-')
     date = models.DateField(default = date.today)
-    share = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
-    love = models.IntegerField(default=0)
+    share_num = models.IntegerField(default=0)
+    comment_num = models.IntegerField(default=0)
+    love_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title + ' | ' + str(self.pk)
+
+class Comment(models.Model):
+    date = datetime.date.today()
+    date = date = models.DateField(default = date.today)
+    comment = models.TextField(default = '-')
+    post_info = models.ForeignKey(Post, default='-', on_delete = models.SET_DEFAULT, verbose_name = 'POST')
+    
