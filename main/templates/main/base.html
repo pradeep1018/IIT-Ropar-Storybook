@@ -39,12 +39,12 @@
     </div>
 
     <!-- Background Pattern Swither -->
-    <div id="pattern-switcher">
+    <!-- <div id="pattern-switcher">
         Bg Pattern
     </div>
     <div id="patter-close">
         <i class="fa fa-times" aria-hidden="true"></i>
-    </div>
+    </div> -->
 
     <!-- ****** Top Header Area Start ****** -->
     <div class="top_header_area">
@@ -52,12 +52,9 @@
             <div class="row">
                 <div class="col-5 col-sm-6">
                     <!--  Top Social bar start -->
-                    <div class="top_social_bar">
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                    <div class="top_social_bar ">
+                        A journey down the memory lane...
+                       <!--  Or mayb Memories of the Class of 2020...something like that -->
                     </div>
                 </div>
                 <!--  Login Register Area -->
@@ -65,6 +62,8 @@
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         
                         <!-- Search Button Area -->
+                        <a class = "button" href="#">Log Out</a>
+                        <!-- <button>Logout</button> -->
                         
                     </div>
                 </div>
@@ -80,7 +79,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">StoryBook IIT Ropar</a>
+                        <a href="{%url 'home' %}" class="yummy-logo">StoryBook IIT Ropar</a>
                     </div>
                 </div>
             </div>
@@ -93,17 +92,17 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="{%url 'home' %}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="gallery.html">Gallery</a>
+                                    <a class="nav-link" href="{%url 'gallery' %}">Gallery</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="graduating.html">Graduating Batch</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'post' %}">Post your stuff</a>
+                                    <a class="nav-link" href="{% url 'post' %}">create a new post</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">About</a>
@@ -296,7 +295,7 @@
                     <div class="footer-content">
                         <!-- Logo Area Start -->
                         <div class="footer-logo-area text-center">
-                            <a href="index.html" class="yummy-logo">StoryBook IIT Ropar</a>
+                            <a href="{%url 'home' %}" class="yummy-logo">StoryBook IIT Ropar</a>
                         </div>
                         <!-- Menu Area Start -->
                         

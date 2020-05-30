@@ -11,6 +11,10 @@ def HomeView(request):
 	post = Post.objects.all()
 	return render(request,'main/home.html', {'posts' : post})
 
+def GalleryView(request):
+	post = Post.objects.all()
+	return render(request,'main/gallery.html',{"posts":post})
+
 def PostView(request):
 	if(request.method == 'POST'):
 		title = request.POST.get('title')

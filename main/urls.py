@@ -9,7 +9,7 @@ urlpatterns = [
 	path('post/',views.PostView,name = 'post'),
 	path('post/comment/<int:pk>/',views.CommentView,name = 'comment'),
 	path('post/<int:pk>/<int:id>/',views.CommunicateView,name = 'communicate'),
-
+	path('gallery/',views.GalleryView,name='gallery'),
 
 ]
 
