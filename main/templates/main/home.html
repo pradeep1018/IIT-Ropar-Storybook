@@ -73,13 +73,21 @@
     <!-- ****** Categories Area End ******-->
 
     <!-- ****** Blog Area Start ****** -->
-    <section class="blog_area section_padding_0_80">
+    <section class="blog_area section_padding_0_80" style="background-image: url({%static 'main/img/bg.jpg'%});background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style="background-color: white; column-width: 300px;">
 
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                     <div class="blog-sidebar mt-5 mt-lg-0">
                         <!-- Single Widget Area -->
+
+                        <div class="single-widget-area about-me-widget text-center">
+                            
+                        </div>
+
                         <div class="single-widget-area about-me-widget text-center">
                             <div class="widget-title">
                                 <h6>About Me</h6>
@@ -163,6 +171,14 @@
                     <div class="row">
 
                         <!-- Single Post -->
+
+                        <div class="col-12">
+                            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+                                <!-- Post Thumb -->
+                                
+                            </div>
+                        </div>
+
                         {% for i in posts %}
                         <div class="col-12">
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
@@ -226,6 +242,13 @@
                         </div>
                     </div>
                 </div>
+
+                 <div class="col-12">
+                    <div class="pagination-area d-sm-flex mt-15">
+                        
+                    </div>
+                </div>
+
 
 
 
