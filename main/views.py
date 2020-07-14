@@ -12,7 +12,17 @@ from django.contrib.auth import authenticate, login, logout
 
 def HomeView(request):
     post = Post.objects.all()
-    Name = request.user.first_name
+    
+
+    user = request.user
+
+    print(user)
+
+    if not user.is_authenticated:
+        return redirect(LoginView)
+
+    Name = request.user.first_name    
+
     return render(request,'main/home.html', {'posts' : post,'name':Name})
 
 def LoginView(request):
