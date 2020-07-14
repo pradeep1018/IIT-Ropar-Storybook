@@ -30,6 +30,15 @@ def LoginView(request):
 
     return render(request,'main/login-page.html')
 
+def WallView(request):
+
+    return render(request,'main/wall.html')
+
+
+def BatchView(request):
+
+    return render(request,'main/batch.html')        
+
 def SignupView(request):
     # post = Post.objects.all()
     message = None
