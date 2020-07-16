@@ -10,16 +10,14 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
+def TestView(request):
+    return render(request,'main/index.html')
+
+@login_required
 def HomeView(request):
     post = Post.objects.all()
     
-
     user = request.user
-
-    print(user)
-
-    if not user.is_authenticated:
-        return redirect(LoginView)
 
     Name = request.user.first_name    
 
@@ -40,11 +38,12 @@ def LoginView(request):
 
     return render(request,'main/login-page.html')
 
+@login_required
 def WallView(request):
 
     return render(request,'main/wall.html')
 
-
+@login_required
 def BatchView(request):
 
     return render(request,'main/batch.html')        
@@ -76,14 +75,17 @@ def SignupView(request):
 
     return render(request,'main/signup-page.html',{'message':message})  
 
-def Logout(request):
+def LogoutView(request):
     logout(request)
-    return redirect(LoginView)        
+    print("BITCH")
+    return redirect(HomeView)  
 
+@login_required
 def GalleryView(request):
     post = Post.objects.all()
     return render(request,'main/gallery.html',{"posts":post})
 
+@login_required
 def PostView(request):
     if(request.method == 'POST'):
         title = request.POST.get('title')
@@ -110,6 +112,7 @@ def PostView(request):
         return redirect('home')
     return render(request, 'main/post.html')
 
+@login_required
 def CommunicateView(request, pk, id):
     obj = Post.objects.get(pk = pk)
     if(id == 1):
@@ -121,7 +124,7 @@ def CommunicateView(request, pk, id):
     obj.save()
     return redirect('home')
 
-
+@login_required
 def CommentView(request, pk):
     post = Post.objects.get(pk = pk)
     try:
@@ -134,3 +137,6 @@ def CommentView(request, pk):
         c = Comment.objects.create(comment = comment, post_info = post)
         return redirect('comment', pk = pk)
     return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments})
+
+
+
