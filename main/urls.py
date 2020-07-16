@@ -11,6 +11,7 @@ urlpatterns = [
 	path('logout/',views.LogoutView,name = 'logout-gen'),
 	path('wall/',views.WallView,name = 'wall'),
 	path('batch/',views.BatchView,name = 'batch'),
+	path('profile/',views.ProfileView,name = 'profile'),
 	# path('signup/',views.SignupView,name = 'signup'),
 	path('post/',views.PostView,name = 'post'),
 	path('post/comment/<int:pk>/',views.CommentView,name = 'comment'),

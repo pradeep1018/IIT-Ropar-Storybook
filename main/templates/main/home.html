@@ -11,7 +11,15 @@
 
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="{{post.picurl}}" alt="">
+            {%if post.image_format%}
+            <a href="{% url 'comment' post.pk%}"><img src= {{post.picurl}} alt=""></a>
+            {%else%}
+            <video width="530" height="440" controls>
+            <source src="{{post.videourl}}" type="video/mp4"></source>
+        </video>
+            {%endif%}
+
+            <!-- <img src="{{post.picurl}}" alt=""> -->
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -184,7 +192,13 @@
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
+                                     {%if i.image_format%}
                                     <a href="{% url 'comment' i.pk%}"><img src= {{i.picurl}} alt=""></a>
+                                    {%else%}
+                                    <video width="530" height="440" controls>
+                                    <source src="{{i.videourl}}" type="video/mp4"></source>
+                                </video>
+                                    {%endif%}
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
@@ -243,11 +257,7 @@
                     </div>
                 </div>
 
-                 <div class="col-12">
-                    <div class="pagination-area d-sm-flex mt-15">
-                        
-                    </div>
-                </div>
+                 
 
 
 
@@ -263,6 +273,9 @@
                         
 
                     </div>
+
+                    <br>
+                    <br>
                 </div>
 
                 <!-- ****** Blog Sidebar ****** -->

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from .models import Post, Comment
+from .models import *
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -9,9 +9,19 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
+@login_required
+def ProfileView(request):
+    user = request.user
 
-def TestView(request):
-    return render(request,'main/index.html')
+    # special = False
+
+    data = Studentdetails.objects.filter(User=user)
+
+    if not data:
+        data = None
+        
+
+    return render(request,'main/update-profile.html',{'user':user,'data':data})
 
 @login_required
 def HomeView(request):
@@ -19,9 +29,16 @@ def HomeView(request):
     
     user = request.user
 
-    Name = request.user.first_name    
+    email = user.email
 
-    return render(request,'main/home.html', {'posts' : post,'name':Name})
+    data = Studentdetails.objects.filter(User = user)
+    
+    if "2018"==email[0:4] and not data:
+        fresh = Studentdetails.objects.create(User = user)
+        return redirect(ProfileView)
+
+
+    return render(request,'main/home.html', {'posts' : post,'user':user})
 
 def LoginView(request):
     # post = Post.objects.all()
@@ -46,7 +63,9 @@ def WallView(request):
 @login_required
 def BatchView(request):
 
-    return render(request,'main/batch.html')        
+    user = request.user
+
+    return render(request,'main/batch.html',{'user':user})        
 
 def SignupView(request):
     # post = Post.objects.all()
@@ -77,27 +96,30 @@ def SignupView(request):
 
 def LogoutView(request):
     logout(request)
-    print("BITCH")
+    
     return redirect(HomeView)  
 
 @login_required
 def GalleryView(request):
     post = Post.objects.all()
-    return render(request,'main/gallery.html',{"posts":post})
+    user = request.user
+    return render(request,'main/gallery.html',{"posts":post,'user':user})
 
 @login_required
 def PostView(request):
+    user = request.user
     if(request.method == 'POST'):
         title = request.POST.get('title')
         thought = request.POST.get('thought')
         f = FileSystemStorage()
+
         try:
             myimage = request.FILES['images']
             imagename = f.save(myimage.name, myimage)
             imageurl = f.url(imagename)
         except:
-            picurl = '-'
-            picname = '-'
+            imageurl = '-'
+            imagename = '-'
         try:
             myvideo = request.FILES['video']
             videoname = f.save(myvideo.name, myvideo)
@@ -107,10 +129,14 @@ def PostView(request):
             videoname = '-'
         
         q = Post(title = title, thought = thought, picurl = imageurl, picname = imagename, videoname = videoname, videourl = videourl)
+        if imagename!='-':
+            q.image_format = True
+        else:
+            q.image_format = False    
         q.save()
 
         return redirect('home')
-    return render(request, 'main/post.html')
+    return render(request, 'main/post.html',{'user':user})
 
 @login_required
 def CommunicateView(request, pk, id):
@@ -127,6 +153,7 @@ def CommunicateView(request, pk, id):
 @login_required
 def CommentView(request, pk):
     post = Post.objects.get(pk = pk)
+    user = request.user
     try:
         comments = Comment.objects.filter(post_info = post)
     except:
@@ -136,7 +163,7 @@ def CommentView(request, pk):
         post = Post.objects.get(pk = pk)
         c = Comment.objects.create(comment = comment, post_info = post)
         return redirect('comment', pk = pk)
-    return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments})
+    return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments,'user':user})
 
 
 
