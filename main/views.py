@@ -13,32 +13,104 @@ from django.contrib.auth import authenticate, login, logout
 def ProfileView(request):
     user = request.user
 
+    message = None
+
     # special = False
 
     data = Studentdetails.objects.filter(User=user)
 
     if not data:
         data = None
+    else:
+        data = data[0]    
+
+    if request.method=='POST':
+        try:
+            usable = user.has_usable_password()
+            curr = authenticate(username = user.username,password = request.POST['curr_password'])
+            
+            if not curr and usable:
+                message = "The password you entered does not match your current password. Note: For new accounts it was initially set to be blank !"
+                return render(request,'main/update-profile.html',{'user':user,'data':data,'message':message})
+
+
+            f = FileSystemStorage()
+
+            try:
+                myimage = request.FILES['images']
+                print(myimage)
+                imagename = f.save(myimage.name, myimage)
+                imageurl = f.url(imagename)
+            except:
+                imageurl = '-'
+                imagename = '-'
+    
+            print(imageurl)
+            gen = Generaldetails.objects.get(User=user)
+            gen.profilepicurl = imageurl
+            gen.profilepicname = imagename
+            gen.save()    
+
+            user.username = request.POST['username']
+
+            if request.POST['new_password']==request.POST['new_password2'] and request.POST['new_password']!='':
+                user.set_password(request.POST['new_password'])
+
+            user.save()    
+
+            if data:
+                data.Address = request.POST['address']
+                data.Branch  = request.POST['branch']
+                data.Mobile  = request.POST['mobile']
+                data.Website  = request.POST['website']
+                data.Summary  = request.POST['summary']
+                data.save()      
+
+
+        except:
+            message = "There seems to be an error in the details you have given. Please fill them carefully. If you are trying to change your username, it may be possible that it is already taken !"
+            return render(request,'main/update-profile.html',{'user':user,'data':data,'message':message})
         
 
-    return render(request,'main/update-profile.html',{'user':user,'data':data})
+    return render(request,'main/update-profile.html',{'user':user,'data':data,'message':message})
 
 @login_required
 def HomeView(request):
     post = Post.objects.all()
     
+    likes = []
+
+    
+
+
     user = request.user
+
+    for i in Post.objects.all():
+        found = Like.objects.filter(post=i,User=user)
+        if found:
+            likes.append(True)
+        else:
+            likes.append(False)
+
 
     email = user.email
 
     data = Studentdetails.objects.filter(User = user)
+
+    gen = Generaldetails.objects.filter(User=user)
+
+    if not gen:
+        new = Generaldetails.objects.create(User=user)
+        gen = new
+    else:
+        gen = gen[0]    
     
     if "2018"==email[0:4] and not data:
         fresh = Studentdetails.objects.create(User = user)
         return redirect(ProfileView)
+  
 
-
-    return render(request,'main/home.html', {'posts' : post,'user':user})
+    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : zip(post,likes),'user':user,'gen':gen})
 
 def LoginView(request):
     # post = Post.objects.all()
@@ -102,8 +174,21 @@ def LogoutView(request):
 @login_required
 def GalleryView(request):
     post = Post.objects.all()
+    likes = []
+
     user = request.user
-    return render(request,'main/gallery.html',{"posts":post,'user':user})
+
+    for i in Post.objects.all():
+        found = Like.objects.filter(post=i,User=user)
+        if found:
+            likes.append(True)
+        else:
+            likes.append(False)
+
+    return render(request,'main/gallery.html',{"posts":zip(post,likes),'user':user})
+
+# @login_required
+# def     
 
 @login_required
 def PostView(request):
@@ -132,7 +217,9 @@ def PostView(request):
         if imagename!='-':
             q.image_format = True
         else:
-            q.image_format = False    
+            q.image_format = False  
+
+        q.User = user      
         q.save()
 
         return redirect('home')
@@ -140,30 +227,41 @@ def PostView(request):
 
 @login_required
 def CommunicateView(request, pk, id):
+    user = request.user
     obj = Post.objects.get(pk = pk)
-    if(id == 1):
+    
+    already = Like.objects.filter(User = user,post=obj)
+    if not already:
         obj.love_num += 1
-    elif(id == 2):
-        obj.comment_num += 1
-    elif(id == 3):
-        obj.share_num += 1
+        naya = Like.objects.create(User=user,post = obj)
+    else:
+        already[0].delete()
+        obj.love_num -=1    
+    
+
     obj.save()
-    return redirect('home')
+    if(id == 2):
+        return redirect(GalleryView)
+    else:
+        return redirect(HomeView)     
 
 @login_required
 def CommentView(request, pk):
     post = Post.objects.get(pk = pk)
+    gen = Generaldetails.objects.get(User=request.user)
     user = request.user
-    try:
-        comments = Comment.objects.filter(post_info = post)
-    except:
-        comments = ''
+    comments = Comment.objects.filter(post = post)
+
+    # print(comments[0])
+
     if(request.method == 'POST'):
-        comment = request.POST.get('comment')
-        post = Post.objects.get(pk = pk)
-        c = Comment.objects.create(comment = comment, post_info = post)
+        comment = request.POST['comment']
+        c = Comment.objects.create(comment = comment, post = post, User=user, usr_det = gen)
+        post.comment_num+=1
+
+        post.save()
         return redirect('comment', pk = pk)
-    return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments,'user':user})
+    return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments,'user':user,'gen':gen})
 
 
 

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Post(models.Model):
+    User = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,related_name='uploader')
     title = models.TextField(default='-')
     date = models.DateTimeField(null = True,auto_now = True)
     image_format = models.BooleanField(null = True)
@@ -15,18 +16,29 @@ class Post(models.Model):
     picname = models.TextField(default='-')
     videourl = models.TextField(default = '-')
     videoname = models.TextField(default = '-')
-    share_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
     love_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title + ' | ' + str(self.pk)
 
+
+class Generaldetails(models.Model):
+    User = models.OneToOneField(User,on_delete=models.SET_NULL, null=True, blank=True)
+    profilepicurl = models.TextField(default='-')
+    profilepicname = models.TextField(default='-')        
+
+class Like(models.Model):
+    User = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,related_name='likeusr')
+    post = models.ForeignKey(Post,on_delete=models.SET_NULL,null=True,related_name='likedpost')
+    date = date = models.DateTimeField(null = True,auto_now = True)
+
 class Comment(models.Model):
-    date = datetime.date.today()
-    date = date = models.DateField(default = date.today)
+    User = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,related_name='cmntusr')
+    usr_det = models.ForeignKey(Generaldetails,on_delete=models.SET_NULL,null=True,related_name='det')
+    post = models.ForeignKey(Post,on_delete=models.SET_NULL,null=True,related_name='cmntpost')
+    date = models.DateTimeField(null = True,auto_now = True)
     comment = models.TextField(default = '-')
-    post_info = models.ForeignKey(Post, default='-', on_delete = models.SET_DEFAULT, verbose_name = 'POST')
 
 
 class Wallmessage(models.Model):
@@ -45,6 +57,8 @@ class Studentdetails(models.Model):
     Summary = models.TextField(blank = True)
     Mobile = models.CharField(max_length=16,null=True,blank = True)
     Website = models.CharField(max_length=100,null=True,blank = True)
+
+
 
 
 

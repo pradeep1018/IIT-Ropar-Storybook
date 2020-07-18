@@ -69,7 +69,11 @@
 
         <br>
   </form>
-  
+    
+    <img id="img" src="#" alt="" />
+    <video width="330" height="240" controls>
+        <source id = "vid" src="#" type="video/mp4"></source>
+    </video>  
 
 </div>
 
@@ -82,7 +86,8 @@
                 var reader = new FileReader();
                 
                 reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result);
+                    $('#img').attr('src', e.target.result);
+                    $('#vid').attr('src', e.target.result);
                 }
                 
                 reader.readAsDataURL(input.files[0]);

@@ -7,7 +7,7 @@
     <section class="welcome-post-sliders owl-carousel">
 
         <!-- Single Slide -->
-        {%for post in posts%}
+        {%for post,i in posts2%}
 
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
@@ -23,8 +23,8 @@
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+                    <a href="#">{{post.date}}</a>
+                    <a href="#">{{post.love_num}} Likes</a>
                 </div>
                 <a href="#">
                     <h5>“{{post.title}}”: {{post.thought}}</h5>
@@ -33,6 +33,8 @@
         </div>
 
           {%endfor%}
+
+
 
         <!-- Single Slide -->
         
@@ -101,9 +103,9 @@
                                 <h6>About Me</h6>
                             </div>
                             <div class="about-me-widget-thumb">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="">
+                                <img src="{{gen.profilepicurl}}" alt="">
                             </div>
-                            <h4 class="font-shadow-into-light">Shopia Bernard</h4>
+                            <h4 class="font-shadow-into-light">{{user.first_name}} {{user.last_name}}</h4>
                             <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
                         </div>
 
@@ -187,16 +189,18 @@
                             </div>
                         </div>
 
-                        {% for i in posts %}
+
+
+                        {%for post,i in posts%}
                         <div class="col-12">
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                     {%if i.image_format%}
-                                    <a href="{% url 'comment' i.pk%}"><img src= {{i.picurl}} alt=""></a>
+                                     {%if post.image_format%}
+                                    <a href="{% url 'comment' post.pk%}"><img src= {{post.picurl}} alt=""></a>
                                     {%else%}
                                     <video width="530" height="440" controls>
-                                    <source src="{{i.videourl}}" type="video/mp4"></source>
+                                    <source src="{{post.videourl}}" type="video/mp4"></source>
                                 </video>
                                     {%endif%}
                                 </div>
@@ -206,27 +210,32 @@
                                         <div class="post-author-date-area d-flex">
                                             <!-- Post Author -->
                                             <div class="post-author">
-                                                <a href="#">Username</a>
+                                                <a href="#">{{post.User.first_name}} {{post.User.last_name}}</a>
                                             </div>
                                             <!-- Post Date -->
                                             <div class="post-date">
-                                                <a href="#">{{i.date}}</a>
+                                                <a href="#">{{post.date}}</a>
                                             </div>
                                         </div>
                                         <!-- Post Comment & Share Area -->
                                         <div class="post-comment-share-area d-flex">
                                             <!-- Post Favourite -->
                                             <div class="post-favourite">
-                                                <a href="{% url 'communicate' i.pk 1%}"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> {{i.love_num}}</a>
+                                                <a href="{% url 'communicate' post.pk 1%}">
+                                                    {%if i%}
+                                                    <i class="fa fa-heart fa-2x" aria-hidden="true">
+                                                        {%else%}
+                                                    <i class="fa fa-heart-o fa-2x" aria-hidden="true">
+                                                        {%endif%}
+                                                    </i> {{post.love_num}}
+                                                </a>
                                             </div>
                                             <!-- Post Comments -->
                                             <div class="post-comments">
-                                                <a href="{% url 'comment' i.pk%}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> {{i.comment_num}}</a>
+                                                <a href="{% url 'comment' post.pk%}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i> {{post.comment_num}}</a>
                                             </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="{% url 'communicate' i.pk 3%}"><i class="fa fa-share-alt fa-2x" aria-hidden="true"></i></a>
-                                            </div>
+                                            
+                                            
                                         </div>
                                     </div>
                                     

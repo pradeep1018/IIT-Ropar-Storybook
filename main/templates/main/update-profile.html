@@ -29,8 +29,20 @@
             </div>
         </div>
     </div>
+
+{%if message%}
+<script>
+    alert('{{ message }}');
+    </script>
+{%endif%}    
 <div class = "container" style="background-color: white;">
     <br>
+    {%if data%}
+    Hello! {{user.first_name}}, congratulations on graduating from IIT Ropar, we hope that this online yearbook will help you re-live your memorable days at campus. Please fill the details below so that we can add these to your wall.
+    {%else%}
+    Hello! {{user.first_name}}, this online yearbook is dedicated for the graduating batch of IIT Ropar. So, please upload any memorable pic you find of the college/ your seniors and help them have a memorable farewell. Also make sure to maintain decency on the platform.
+    {%endif%}
+    <br><br>
     <form method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" >
         {% csrf_token %}
         <div class="form-group">
@@ -68,20 +80,71 @@
 
         {%if data%}
 
+
+
+        <div class="form-group">
+            Address (Optional)
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="address" class="form-control" placeholder="Address" value="{{data.Address}}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            Branch*
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="branch" class="form-control" placeholder="Branch" value="{{data.Branch}}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            Mobile number (Optional)
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="mobile" class="form-control" placeholder="Mobile number" value="{{data.Mobile}}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            Website (Optional)
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="website" class="form-control" placeholder="Website" value="{{data.Website}}" />
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <textarea type="text" id="thought" name="thought" rows="5" class="form-control" placeholder="Tell us a bit about yourself !"></textarea>
+                    <textarea type="text" name="summary" rows="5" class="form-control" placeholder="Tell us a bit about yourself ! This will appear on your wall ! (Optional)" value = "{{data.summary}}"></textarea>
                 </div>
             </div>
         </div>
 
         {%endif%}
+
+        Update Profile-pic
+
+        <div class="image-upload">
+            <label for="image">
+                <i class="fa fa-user-circle fa-3x" style = "cursor : pointer"  ></i>          
+            </label>
+          
+            <input type='file' id="image" onchange="readURL(this);" accept="image/*" name = "images"/>
+        </div>
         
         <div class="form-group">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save Changes</button>
             </div>
+            <br>
+
+            <img id="img" src="#" alt="" />
             <br><br>
             Note : Please fill your current password to make any changes to your profile. By default it is empty unless you've changed it.
 
@@ -95,4 +158,19 @@
 </br></br></br>
 {% endblock %}
 
-
+{%block javascript %}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                    
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+{% endblock %}
