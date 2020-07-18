@@ -48,7 +48,13 @@
                                         <div class="post-post-share-area d-flex">
                                             <!-- Post Favourite -->
                                             <div class="post-favourite">
-                                                <a href="{% url 'communicate' post.pk 1%}"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i> {{post.love_num}}</a>
+                                                <a href="{% url 'communicate' post.pk 1%}">
+                                                    {%if like%}
+                                                    <i class="fa fa-heart fa-2x" aria-hidden="true">
+                                                        {%else%}
+                                                    <i class="fa fa-heart-o fa-2x" aria-hidden="true">
+                                                        {%endif%}
+                                                    </i> {{post.love_num}}</a>
                                             </div>
                                             <!-- Post posts -->
                                             <div class="post-posts">
@@ -168,56 +174,26 @@
                             <div class="widget-title text-center">
                                 <h6>Popular Post</h6>
                             </div>
-                            <!-- Single Popular Post -->
+                            {%for post in like_sorted%}
                             <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/1.jpg" alt="">
+                                {%if post.image_format%}
+                                <img width="155" height="104" src="{{post.picurl}}" alt="">
+                                {%else%}
+                                <video width="155" height="103" controls>
+                                <source src="{{post.videourl}}" type="video/mp4"></source>
+                                </video>
+                                {%endif%}
                                 <div class="post-content">
-                                    <a href="#">
-                                        <h6>Top Wineries To Visit In England</h6>
+                                    <a href="{%url 'comment' post.pk%}">
+                                        <h6>{{post.title}}</h6>
                                     </a>
-                                    <p>Tuesday, October 3, 2017</p>
+                                    <p>{{post.date}}</p>
                                 </div>
                             </div>
                             <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/2.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>The 8 Best Gastro Pubs In Bath</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/3.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Zermatt Unplugged the best festival</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/4.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Harrogate's Top 10 Independent Eats</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
-                            <!-- Single Popular Post -->
-                            <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/5.jpg" alt="">
-                                <div class="post-content">
-                                    <a href="#">
-                                        <h6>Eating Out On A Budget In Oxford</h6>
-                                    </a>
-                                    <p>Tuesday, October 3, 2017</p>
-                                </div>
-                            </div>
+                            
+                            {%endfor%}
+                            
                         </div>
 
                         

@@ -17,6 +17,8 @@ def ProfileView(request):
 
     # special = False
 
+    gen = Generaldetails.objects.get(User=user)
+
     data = Studentdetails.objects.filter(User=user)
 
     if not data:
@@ -47,9 +49,11 @@ def ProfileView(request):
     
             print(imageurl)
             gen = Generaldetails.objects.get(User=user)
-            gen.profilepicurl = imageurl
-            gen.profilepicname = imagename
-            gen.save()    
+
+            if not imageurl=='-':
+                gen.profilepicurl = imageurl
+                gen.profilepicname = imagename
+                gen.save()    
 
             user.username = request.POST['username']
 
@@ -69,29 +73,37 @@ def ProfileView(request):
 
         except:
             message = "There seems to be an error in the details you have given. Please fill them carefully. If you are trying to change your username, it may be possible that it is already taken !"
-            return render(request,'main/update-profile.html',{'user':user,'data':data,'message':message})
+            return render(request,'main/update-profile.html',{'user':user,'gen':gen,'data':data,'message':message})
         
 
-    return render(request,'main/update-profile.html',{'user':user,'data':data,'message':message})
+    return render(request,'main/update-profile.html',{'user':user,'gen':gen,'data':data,'message':message})
 
 @login_required
 def HomeView(request):
-    post = Post.objects.all()
+    posts = Post.objects.all()
     
     likes = []
+    post = []
+    like_sorted = []
+    
+    for i in posts:
+        post.append(i) 
+        like_sorted.append(i)
 
     
-
+    post.sort(key= lambda x:x.date , reverse = True)
+    like_sorted.sort(key=lambda x:x.love_num, reverse=True)
 
     user = request.user
 
-    for i in Post.objects.all():
+    for i in post:
         found = Like.objects.filter(post=i,User=user)
         if found:
             likes.append(True)
         else:
             likes.append(False)
 
+    like_sorted = like_sorted[:10]
 
     email = user.email
 
@@ -105,12 +117,32 @@ def HomeView(request):
     else:
         gen = gen[0]    
     
+    print(email[4:8])    
+
     if "2018"==email[0:4] and not data:
-        fresh = Studentdetails.objects.create(User = user)
+        branch = '-'
+        if email[4:7]=="csb":
+            branch = "Computer Science and Engg."
+        elif email[4:7]=="chb":
+            branch = "Chemical Engineering" 
+        elif email[4:7]=="meb":
+            branch = "Mechanical Engineering"
+        elif email[4:7]=="mcb":
+            branch = "Mathematics and Computing"
+        elif email[4:7]=="ceb":
+            branch = "Civil Engineering"
+        elif email[4:7]=="eeb":
+            branch = "Electrical Engineering" 
+        elif email[4:7]=="med":
+            branch = "Mechanical Engineering Dual"
+        elif email[4:7]=="mmb":
+            branch = "Metallurgical and Materials Engineering"                
+
+        fresh = Studentdetails.objects.create(User = user,general = gen,Branch = branch)
         return redirect(ProfileView)
   
 
-    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : zip(post,likes),'user':user,'gen':gen})
+    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : zip(post,likes),'user':user,'gen':gen,'like_sorted':like_sorted})
 
 def LoginView(request):
     # post = Post.objects.all()
@@ -128,16 +160,40 @@ def LoginView(request):
     return render(request,'main/login-page.html')
 
 @login_required
-def WallView(request):
+def WallView(request,pk):
+    user = request.user
+    student = Studentdetails.objects.get(pk=pk)
+    
 
-    return render(request,'main/wall.html')
+    if request.method=='POST':
+        until = Wallmessage.objects.filter(reciever = student.User)
+        
+        if len(until)%4==0:
+            new_col = "#09ACF3"
+        elif len(until)%4==1:
+            new_col = "#F309BA"
+        elif len(until)%4==2:
+            new_col = "#97F309"
+        else:
+            new_col =  "#0CEEDD"    
+    
+        new_wish = Wallmessage.objects.create(writer = user,reciever=student.User,body = request.POST['wishes'],color = new_col)
+
+    all_wishes = Wallmessage.objects.filter(reciever = student.User)    
+
+    return render(request,'main/wall.html',{'student':student,'wishes':all_wishes})
 
 @login_required
 def BatchView(request):
 
     user = request.user
 
-    return render(request,'main/batch.html',{'user':user})        
+    students = Studentdetails.objects.all();
+
+    for i in students:
+        print(i.Summary)
+
+    return render(request,'main/batch.html',{'user':user,'students':students})        
 
 def SignupView(request):
     # post = Post.objects.all()
@@ -251,6 +307,21 @@ def CommentView(request, pk):
     gen = Generaldetails.objects.get(User=request.user)
     user = request.user
     comments = Comment.objects.filter(post = post)
+    
+    like_sorted = []
+    
+    for i in Post.objects.all():
+        like_sorted.append(i)
+
+    
+    like_sorted.sort(key=lambda x:x.love_num, reverse=True)
+
+
+    like = False
+
+    found = Like.objects.filter(post=post,User=user)
+    if found:
+        like = True
 
     # print(comments[0])
 
@@ -261,7 +332,7 @@ def CommentView(request, pk):
 
         post.save()
         return redirect('comment', pk = pk)
-    return render(request, 'main/post_detailView.html', {'post' : post, 'comments' : comments,'user':user,'gen':gen})
+    return render(request, 'main/post_detailView.html', {'post' : post,'like_sorted':like_sorted,'like':like, 'comments' : comments,'user':user,'gen':gen})
 
 
 

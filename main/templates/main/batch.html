@@ -39,169 +39,26 @@
             <br><br>
             <div class="row justify-content-center" >
 
+                {% for student in students%}
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                     <div class="single-post mt-5 mt-lg-0">
                         <!-- Single Widget Area -->
                         <div class="single-widget-area about-me-widget text-center">
                             <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
+                                <h6>{{student.Branch}}</h6>
                             </div>
                             <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
+                                <a href="{% url 'wall' student.pk%}">
+                                <img src="{{student.general.profilepicurl}}" alt="" >
                                 </a>
                             </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
+                            <a href="{% url 'wall' student.pk%}"><h4 class="font-shadow-into-light">{{student.User.first_name}} {{student.User.last_name}}</h4></a>
                         </div>
                     
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="single-post mt-5 mt-lg-0">
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>Branch/batch mayb?</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <a href="{% url 'wall'%}">
-                                <img src="{% static 'main/img/about-img/1.jpg' %}" alt="" >
-                                </a>
-                            </div>
-                            <a href="{% url 'wall'%}"><h4 class="font-shadow-into-light">Shopia Bernard</h4></a>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
-                        </div>
-                    
-                    </div>
-                </div>
+            {%endfor%}
+                
 
                 <div class="col-12">
                     <div class="pagination-area d-sm-flex mt-15">

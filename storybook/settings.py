@@ -129,7 +129,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-
+SITE_URL = "http://192.168.1.8:8000"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
