@@ -146,6 +146,11 @@ def HomeView(request):
 
 def LoginView(request):
     # post = Post.objects.all()
+    user = request.user
+
+    if user.is_authenticated:
+        return redirect(HomeView)
+
     if(request.method=='POST'):
         username = request.POST['username']
         password = request.POST['pass']
