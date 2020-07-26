@@ -65,7 +65,12 @@ class Studentdetails(models.Model):
     Website = models.CharField(max_length=100,null=True,blank = True)
 
 
+class Problem_reports(models.Model):
+    title = models.TextField(default = '-')
+    details = models.TextField(default='-')
 
+    def __str__(self):
+        return self.title
 
 
 

@@ -100,6 +100,11 @@
                                 <a href="#">#Ideas</a>
                             </div>
 
+                            {%if owner%}
+                            <div class="tags-area">
+                                <a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete' post.pk%}">Delete Post</a>
+                            </div>
+                            {%endif%}
                             <!-- Related Post Area -->
                             
 

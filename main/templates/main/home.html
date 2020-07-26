@@ -7,7 +7,7 @@
     <section class="welcome-post-sliders owl-carousel">
 
         <!-- Single Slide -->
-        {%for post,i in posts2%}
+        {%for post in posts2%}
 
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
@@ -220,19 +220,31 @@
                     <div class="pagination-area d-sm-flex mt-15">
                         <nav aria-label="#">
                             <ul class="pagination">
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                {%if page.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page.previous_page_number }}"> <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#"> <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                </li>
+                                {% endif %}
+                                
+                                <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                                <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                                <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                                {% if page.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page.next_page_number }}">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                </li>
+                                {% else %}
                                 <li class="page-item">
                                     <a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </nav>
-                        <div class="page-status">
-                            <p>Page 1 of 60 results</p>
-                        </div>
+                        
                     </div>
                 </div>
 

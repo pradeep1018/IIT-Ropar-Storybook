@@ -104,20 +104,20 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="{%url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="{%url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{%url 'gallery' %}">Gallery</a>
+                                    <a class="nav-link" href="{%url 'gallery' %}"><i class="fa fa-picture-o" aria-hidden="true"></i> Gallery</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{%url 'batch'%}">Graduating Batch</a>
+                                    <a class="nav-link" href="{%url 'batch'%}"><i class="fa fa-users" aria-hidden="true"></i> Graduating Batch</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'post' %}">create a new post</a>
+                                    <a class="nav-link" href="{% url 'post' %}"><i class="fa fa-camera-retro" aria-hidden="true"></i> Create a New Post</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">About</a>
+                                    <a class="nav-link" href="{% url 'about' %}"><i class="fa fa-info" aria-hidden="true"></i> About us</a>
                                 </li>
                             </ul>
                         </div>
@@ -284,7 +284,7 @@
                             <a href="{%url 'post'%}"><i class="fa fa-camera-retro" aria-hidden="true"></i><span>New post</span></a>
                         </div>
                         <div class="single-icon">
-                            <a href="#"><i class="fa fa-user-secret" aria-hidden="true"></i><span>About Us</span></a>
+                            <a href="{% url 'about' %}"><i class="fa fa-info" aria-hidden="true"></i><span>About Us</span></a>
                         </div>
                     </div>
                 </div>
