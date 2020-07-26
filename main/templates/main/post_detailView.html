@@ -128,8 +128,13 @@
                                                 <h5>{{cc.User.first_name}} {{cc.User.last_name}}</h5>
                                                 <p>{{cc.comment}}</p>
                                             </div>
+                                           
+                                           {% if user == cc.User or owner %}
+                                            <div class="tags-area">
+                                                <a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete-comment' cc.pk%}">Delete Comment</a>
+                                            </div>
+                                            {% endif %}
                                         </div>
-                                        
                                     </li>
                                     {% endfor %}
                                 </ol>

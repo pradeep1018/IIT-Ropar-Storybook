@@ -164,7 +164,7 @@ def HomeView(request):
         return redirect(ProfileView)
   
 
-    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : like_sorted_2,'user':user,'gen':gen,'like_sorted':like_sorted,'page':post})
+    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : like_sorted_2,'user':user,'gen':gen,'like_sorted':like_sorted,'page':post,'active':1})
 
 
 
@@ -175,7 +175,7 @@ def AboutView(request):
         Problem_reports.objects.create(title=request.POST['title'],details=request.POST['detail'])
         message = "Your issue has been reported, Thank You for letting us know."
 
-    return render(request,'main/about.html',{"message":message})
+    return render(request,'main/about.html',{"message":message,'active':5})
 
 
 def LoginView(request):
@@ -232,7 +232,7 @@ def BatchView(request):
     for i in students:
         print(i.Summary)
 
-    return render(request,'main/batch.html',{'user':user,'students':students})        
+    return render(request,'main/batch.html',{'user':user,'students':students,'active':3})        
 
 def SignupView(request):
     # post = Post.objects.all()
@@ -290,7 +290,7 @@ def GalleryView(request):
         else:
             likes.append(False)
 
-    return render(request,'main/gallery.html',{"posts":zip(post,likes),'user':user,'page':post})
+    return render(request,'main/gallery.html',{"posts":zip(post,likes),'user':user,'page':post,'active':2})
 
 # @login_required
 # def     
@@ -328,7 +328,7 @@ def PostView(request):
         q.save()
 
         return redirect('home')
-    return render(request, 'main/post.html',{'user':user})
+    return render(request, 'main/post.html',{'user':user,'active':4})
 
 @login_required
 def CommunicateView(request, pk, id):
@@ -369,6 +369,19 @@ def PostDeleteView(request,pk):
     post.delete()
     
     return redirect(HomeView)    
+
+@login_required
+def CommentDeleteView(request,pk):
+    comment = Comment.objects.get(pk=pk)
+    user = request.user
+    post = comment.post
+
+    if user!=post.User and user!=comment.User:
+        return redirect(HomeView)
+
+    comment.delete()
+
+    return redirect(CommentView,post.pk)    
 
 @login_required
 def CommentView(request, pk):

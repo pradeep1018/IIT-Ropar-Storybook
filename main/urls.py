@@ -18,6 +18,7 @@ urlpatterns = [
 	path('post/<int:pk>/<int:id>/',views.CommunicateView,name = 'communicate'),
 	path('gallery/',views.GalleryView,name='gallery'),
 	path('delete/<int:pk>/',views.PostDeleteView,name='delete'),
+	path('delete-comment/<int:pk>/',views.CommentDeleteView,name='delete-comment'),
 	path('about/',views.AboutView,name='about'),
 
 ]
