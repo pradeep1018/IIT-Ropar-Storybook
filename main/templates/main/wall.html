@@ -85,7 +85,11 @@ http://www.templatemo.com/tm-467-easy-profile
 	{%for wish in wishes%}
 	<div class="col-md-6 col-sm-12">
 			<div class="languages" style="background: {{wish.color}};">
-				<h2>{{wish.writer.first_name}} {{wish.writer.last_name}}</h2>
+				<h2>{{wish.writer.first_name}} {{wish.writer.last_name}}
+					 {% if user == wish.writer or user == wish.reciever %}
+					<a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete-wall-message' wish.pk%}"><i class="fa fa-trash-o"></i></a>
+					{%endif%}
+				</h2>
 					{{wish.body}}
 			</div>
 	</div>

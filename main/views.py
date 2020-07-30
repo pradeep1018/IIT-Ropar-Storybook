@@ -220,7 +220,7 @@ def WallView(request,pk):
 
     all_wishes = Wallmessage.objects.filter(reciever = student.User)    
 
-    return render(request,'main/wall.html',{'student':student,'wishes':all_wishes})
+    return render(request,'main/wall.html',{'student':student,'wishes':all_wishes,'user':user})
 
 @login_required
 def BatchView(request):
@@ -348,7 +348,21 @@ def CommunicateView(request, pk, id):
     if(id == 2):
         return redirect(GalleryView)
     else:
-        return redirect(HomeView)     
+        return redirect(HomeView)   
+
+@login_required
+def DeleteWallMessage(request,pk):
+    message = Wallmessage.objects.get(pk=pk)
+    user = request.user
+    student = Studentdetails.objects.get(User=message.reciever)
+
+    if user!=message.writer and user!=message.reciever:
+        return redirect(WallView,student.pk)
+
+    message.delete()
+
+    return redirect(WallView,student.pk)    
+
 
 @login_required
 def PostDeleteView(request,pk):

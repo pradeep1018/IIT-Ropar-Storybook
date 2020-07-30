@@ -20,6 +20,7 @@ urlpatterns = [
 	path('delete/<int:pk>/',views.PostDeleteView,name='delete'),
 	path('delete-comment/<int:pk>/',views.CommentDeleteView,name='delete-comment'),
 	path('about/',views.AboutView,name='about'),
+	path('delete-wall-message/<int:pk>/',views.DeleteWallMessage,name='delete-wall-message'),
 
 ]
 
