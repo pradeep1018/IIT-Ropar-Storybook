@@ -9,7 +9,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="bradcumb-title text-center">
-                        <h2>{{user.first_name}} {{user.last_name}}</h2>
+                        <h2>Welcome, {{user.first_name}} {{user.last_name}}</h2>
                     </div>
                 </div>
             </div>
@@ -151,8 +151,18 @@
         </div>
         <br>
   </form>
-  
+  <center>
+  {%if your_posts%}
+  <h3>Your Posts</h3>
+  <br>
+  {%for post in your_posts%}
 
+  <h5><a href="{% url 'comment' post.pk%}">{{post.title}}</a></h5>
+  <br>
+  {%endfor%}
+
+  {%endif%}
+  </center>
 </div>
 
 </br></br></br>

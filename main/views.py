@@ -6,7 +6,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 @login_required
@@ -47,10 +47,12 @@ def ProfileView(request):
                 imageurl = '-'
                 imagename = '-'
     
-            print(imageurl)
+            # print(imageurl)
             gen = Generaldetails.objects.get(User=user)
 
             if not imageurl=='-':
+                if(gen.profilepicname!='-'):
+                    f.delete(gen.profilepicname)
                 gen.profilepicurl = imageurl
                 gen.profilepicname = imagename
                 gen.save()    
@@ -75,23 +77,41 @@ def ProfileView(request):
             message = "There seems to be an error in the details you have given. Please fill them carefully. If you are trying to change your username, it may be possible that it is already taken !"
             return render(request,'main/update-profile.html',{'user':user,'gen':gen,'data':data,'message':message})
         
+    your_posts = Post.objects.filter(User=user)
 
-    return render(request,'main/update-profile.html',{'user':user,'gen':gen,'data':data,'message':message})
+    return render(request,'main/update-profile.html',{'user':user,'gen':gen,'data':data,'message':message,'your_posts':your_posts})
 
 @login_required
 def HomeView(request):
-    posts = Post.objects.all()
+    all_posts = Post.objects.all()
+
+    # I'm converting it to list because we need to sort it by date
+    all_posts_list = [] 
+
+    for i in all_posts:
+        all_posts_list.append(i)
+
+    all_posts_list.sort(key= lambda x:x.date , reverse = True)
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(all_posts_list, 10)
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
     
-    likes = []
-    post = []
-    like_sorted = []
-    
-    for i in posts:
-        post.append(i) 
+    likes = [] # This is used for identifying the likes of each post in the page
+    # post = []
+    like_sorted = [] # this is used to generated the popular posts
+
+    for i in all_posts: 
         like_sorted.append(i)
 
     
-    post.sort(key= lambda x:x.date , reverse = True)
+    # For popular posts
     like_sorted.sort(key=lambda x:x.love_num, reverse=True)
 
     user = request.user
@@ -104,6 +124,8 @@ def HomeView(request):
             likes.append(False)
 
     like_sorted = like_sorted[:10]
+    like_sorted_2 = like_sorted[:20]
+
 
     email = user.email
 
@@ -142,7 +164,19 @@ def HomeView(request):
         return redirect(ProfileView)
   
 
-    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : zip(post,likes),'user':user,'gen':gen,'like_sorted':like_sorted})
+    return render(request,'main/home.html', {'posts' : zip(post,likes),'posts2' : like_sorted_2,'user':user,'gen':gen,'like_sorted':like_sorted,'page':post,'active':1})
+
+
+
+def AboutView(request):
+
+    message = None
+    if request.method=='POST':
+        Problem_reports.objects.create(title=request.POST['title'],details=request.POST['detail'])
+        message = "Your issue has been reported, Thank You for letting us know."
+
+    return render(request,'main/about.html',{"message":message,'active':5})
+
 
 def LoginView(request):
     # post = Post.objects.all()
@@ -186,7 +220,7 @@ def WallView(request,pk):
 
     all_wishes = Wallmessage.objects.filter(reciever = student.User)    
 
-    return render(request,'main/wall.html',{'student':student,'wishes':all_wishes})
+    return render(request,'main/wall.html',{'student':student,'wishes':all_wishes,'user':user})
 
 @login_required
 def BatchView(request):
@@ -198,7 +232,7 @@ def BatchView(request):
     for i in students:
         print(i.Summary)
 
-    return render(request,'main/batch.html',{'user':user,'students':students})        
+    return render(request,'main/batch.html',{'user':user,'students':students,'active':3})        
 
 def SignupView(request):
     # post = Post.objects.all()
@@ -234,19 +268,29 @@ def LogoutView(request):
 
 @login_required
 def GalleryView(request):
-    post = Post.objects.all()
+    all_posts = Post.objects.all()
     likes = []
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(all_posts, 12)
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
 
     user = request.user
 
-    for i in Post.objects.all():
+    for i in post:
         found = Like.objects.filter(post=i,User=user)
         if found:
             likes.append(True)
         else:
             likes.append(False)
 
-    return render(request,'main/gallery.html',{"posts":zip(post,likes),'user':user})
+    return render(request,'main/gallery.html',{"posts":zip(post,likes),'user':user,'page':post,'active':2})
 
 # @login_required
 # def     
@@ -284,7 +328,7 @@ def PostView(request):
         q.save()
 
         return redirect('home')
-    return render(request, 'main/post.html',{'user':user})
+    return render(request, 'main/post.html',{'user':user,'active':4})
 
 @login_required
 def CommunicateView(request, pk, id):
@@ -304,7 +348,54 @@ def CommunicateView(request, pk, id):
     if(id == 2):
         return redirect(GalleryView)
     else:
-        return redirect(HomeView)     
+        return redirect(HomeView)   
+
+@login_required
+def DeleteWallMessage(request,pk):
+    message = Wallmessage.objects.get(pk=pk)
+    user = request.user
+    student = Studentdetails.objects.get(User=message.reciever)
+
+    if user!=message.writer and user!=message.reciever:
+        return redirect(WallView,student.pk)
+
+    message.delete()
+
+    return redirect(WallView,student.pk)    
+
+
+@login_required
+def PostDeleteView(request,pk):
+    post = Post.objects.get(pk=pk)
+    user = request.user
+
+    if user!=post.User:
+        return redirect(HomeView)
+
+    f = FileSystemStorage()    
+
+    if post.videoname!='-':
+        f.delete(post.videoname)
+    
+    if post.picname!='-':
+        f.delete(post.picname)    
+
+    post.delete()
+    
+    return redirect(HomeView)    
+
+@login_required
+def CommentDeleteView(request,pk):
+    comment = Comment.objects.get(pk=pk)
+    user = request.user
+    post = comment.post
+
+    if user!=post.User and user!=comment.User:
+        return redirect(HomeView)
+
+    comment.delete()
+
+    return redirect(CommentView,post.pk)    
 
 @login_required
 def CommentView(request, pk):
@@ -328,6 +419,10 @@ def CommentView(request, pk):
     if found:
         like = True
 
+    owner = False
+    if user==post.User:
+        owner = True    
+
     # print(comments[0])
 
     if(request.method == 'POST'):
@@ -337,7 +432,7 @@ def CommentView(request, pk):
 
         post.save()
         return redirect('comment', pk = pk)
-    return render(request, 'main/post_detailView.html', {'post' : post,'like_sorted':like_sorted,'like':like, 'comments' : comments,'user':user,'gen':gen})
+    return render(request, 'main/post_detailView.html', {'post' : post,'like_sorted':like_sorted,'like':like, 'comments' : comments,'user':user,'gen':gen,'owner':owner})
 
 
 

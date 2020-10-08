@@ -7,7 +7,7 @@
     <section class="welcome-post-sliders owl-carousel">
 
         <!-- Single Slide -->
-        {%for post,i in posts2%}
+        {%for post in posts2%}
 
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
@@ -83,7 +83,7 @@
     <!-- ****** Categories Area End ******-->
 
     <!-- ****** Blog Area Start ****** -->
-    <section class="blog_area section_padding_0_80" style="background-image: url({%static 'main/img/bg.jpg'%});background-attachment: fixed;
+    <section class="blog_area section_padding_0_80" style="background-image: url({%static 'main/img/iit3.jpeg'%});background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;">
@@ -106,7 +106,7 @@
                                 <img src="{{gen.profilepicurl}}" alt="">
                             </div>
                             <h4 class="font-shadow-into-light">{{user.first_name}} {{user.last_name}}</h4>
-                            <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p>
+                            <!-- <p>We'll link this to the user's profile. The user can also add a brief summary/write up to their own wall.</p> -->
                         </div>
 
                         <!-- Single Widget Area -->
@@ -165,11 +165,11 @@
                         <div class="col-12">
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
-                                <div class="post-thumb">
+                                <div class="post-thumb ">
                                      {%if post.image_format%}
                                     <a href="{% url 'comment' post.pk%}"><img src= {{post.picurl}} alt=""></a>
                                     {%else%}
-                                    <video  controls>
+                                    <video width="100%" height="100%" controls>
                                     <source src="{{post.videourl}}" type="video/mp4"></source>
                                 </video>
                                     {%endif%}
@@ -220,19 +220,31 @@
                     <div class="pagination-area d-sm-flex mt-15">
                         <nav aria-label="#">
                             <ul class="pagination">
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                {%if page.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page.previous_page_number }}"> <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#"> <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                </li>
+                                {% endif %}
+                                
+                                <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                                <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                                <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                                {% if page.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page.next_page_number }}">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                </li>
+                                {% else %}
                                 <li class="page-item">
                                     <a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </nav>
-                        <div class="page-status">
-                            <p>Page 1 of 60 results</p>
-                        </div>
+                        
                     </div>
                 </div>
 

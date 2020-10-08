@@ -85,7 +85,11 @@ http://www.templatemo.com/tm-467-easy-profile
 	{%for wish in wishes%}
 	<div class="col-md-6 col-sm-12">
 			<div class="languages" style="background: {{wish.color}};">
-				<h2>{{wish.writer.first_name}} {{wish.writer.last_name}}</h2>
+				<h2>{{wish.writer.first_name}} {{wish.writer.last_name}}
+					 {% if user == wish.writer or user == wish.reciever %}
+					<a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete-wall-message' wish.pk%}"><i class="fa fa-trash-o"></i></a>
+					{%endif%}
+				</h2>
 					{{wish.body}}
 			</div>
 	</div>
@@ -120,9 +124,14 @@ http://www.templatemo.com/tm-467-easy-profile
 $(function(){
     jQuery(document).ready(function() {
 		$('body').backstretch([
-	 		 "{%static 'wall/images/tm-bg-slide-1.jpg'%}", 
-	 		 "{%static 'wall/images/tm-bg-slide-2.jpg'%}",
-			 "{%static 'wall/images/tm-bg-slide-3.jpg'%}"
+	 		 "{%static 'wall/images/iit4.jpeg'%}",
+	 		 "{%static 'wall/images/iit5.jpg'%}",
+	 		 "{%static 'wall/images/iit6.jpg'%}",
+	 		 "{%static 'wall/images/iit7.jpg'%}",
+	 		 "{%static 'wall/images/iit8.jpg'%}",
+	 		 "{%static 'wall/images/iit1.jpg'%}", 
+	 		 "{%static 'wall/images/iit2.jpeg'%}",
+	 		 "{%static 'wall/images/iit3.jpeg'%}"
 	 			], 	{duration: 3200, fade: 1300});
 		});
 })
